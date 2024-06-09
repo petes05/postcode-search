@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Postcode from '@/models/Postcode'
+import Postcode from '@/models/Postcode';
 import type PostcodeLocationData from '@/types/PostcodeLocationData';
 import type PostcodeLookupService from '@/types/PostcodeLookupService';
-import { ref, inject } from 'vue'
+import { ref, inject } from 'vue';
 
 const postcodeLookupService = inject<PostcodeLookupService>('postcodeLookupService');
-const postcodeEntry = ref("");
+const postcodeEntry = ref('');
 const lookupResult = ref<PostcodeLocationData>();
 
 /**
@@ -18,9 +18,8 @@ async function searchForPostcode(): Promise<void> {
     if (postcode) {
       const postcodeLocationData = await lookupPostcodeLocationData(postcode);
       handlePostcodeLocationData(postcodeLocationData);
-    }
-    else {
-      alert("Invalid postcode");
+    } else {
+      alert('Invalid postcode');
     }
   }
 }
@@ -29,7 +28,9 @@ async function searchForPostcode(): Promise<void> {
  * Look up location data for a validated postcode.
  * @param postcode Validated postcode object.
  */
-async function lookupPostcodeLocationData(postcode: Postcode): Promise<PostcodeLocationData|null> {
+async function lookupPostcodeLocationData(
+  postcode: Postcode
+): Promise<PostcodeLocationData | null> {
   if (!postcodeLookupService) {
     // Service has not been injected!
     throw new Error();
@@ -42,11 +43,11 @@ async function lookupPostcodeLocationData(postcode: Postcode): Promise<PostcodeL
  * Handle new postcode location data.
  * @param locationData Location data for a postcode or null.
  */
-function handlePostcodeLocationData(locationData: PostcodeLocationData|null): void {
+function handlePostcodeLocationData(locationData: PostcodeLocationData | null): void {
   lookupResult.value = locationData ?? undefined;
 
   if (!locationData) {
-    alert("Postcode not found");
+    alert('Postcode not found');
   }
 }
 </script>
@@ -54,7 +55,7 @@ function handlePostcodeLocationData(locationData: PostcodeLocationData|null): vo
 <template>
   <div class="search-form">
     <h1 class="green">Postcode Search</h1>
-    <input v-model="postcodeEntry" placeholder="Postcode"  autocomplete="off"/>
+    <input v-model="postcodeEntry" placeholder="Postcode" autocomplete="off" />
     <button v-on:click="searchForPostcode">Search</button>
   </div>
   <div v-if="lookupResult">
@@ -76,33 +77,37 @@ function handlePostcodeLocationData(locationData: PostcodeLocationData|null): vo
         <td>{{ lookupResult.ward }}</td>
       </tr>
     </table>
-    Source: <a target="_blank" :href="lookupResult.source.href">{{ lookupResult.source.toString() }}</a>
+    Source:
+    <a target="_blank" :href="lookupResult.source.href">{{ lookupResult.source.toString() }}</a>
   </div>
 </template>
 
 <style scoped>
-  .search-form {
-    width: 100%;
-    
-    text-align: center;
-  }
+.search-form {
+  width: 100%;
 
-  table {
-    margin-top: 50px;
-    width: 100%;
-    border-collapse: collapse;
-  }
+  text-align: center;
+}
 
-  table, th, td {
-    border:1px solid black;
-  }
+table {
+  margin-top: 50px;
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  th, td {
-    padding: 10px;
-  }
+table,
+th,
+td {
+  border: 1px solid black;
+}
 
-  th {
-    text-align: left;
-    font-weight: bold;
-  }
+th,
+td {
+  padding: 10px;
+}
+
+th {
+  text-align: left;
+  font-weight: bold;
+}
 </style>

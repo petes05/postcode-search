@@ -1,4 +1,4 @@
-import { PostcodeRegex } from "@/assets/regex";
+import { PostcodeRegex } from '@/assets/regex';
 
 /**
  * Represents a validated postcode.
@@ -15,9 +15,9 @@ export default class Postcode {
    * @param postcode
    * @returns Newly created postcode object or null if invalid postcode provided.
    */
-  public static createPostcodeObject(postcode: string): Postcode|null {
+  public static createPostcodeObject(postcode: string): Postcode | null {
     const valid = this.validatePostcodeString(postcode);
-    
+
     return valid ? new Postcode(postcode) : null;
   }
 

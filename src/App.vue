@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PostcodeSearch from './components/PostcodeSearch.vue'
+import PostcodeSearch from './components/PostcodeSearch.vue';
 </script>
 
 <template>
@@ -8,5 +8,4 @@ import PostcodeSearch from './components/PostcodeSearch.vue'
   </main>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
